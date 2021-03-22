@@ -1,5 +1,6 @@
 var panZoom = svgPanZoom("#citySvg", {
-  refreshRate: 1,
+  zoomScaleSensitivity: 1,
+  refreshRate: 60,
   minZoom: 3,
   maxZoom: 10,
 });
