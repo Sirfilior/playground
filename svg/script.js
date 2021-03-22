@@ -1,5 +1,18 @@
-var panZoom = svgPanZoom("#citySvg");
+var panZoom = svgPanZoom("#citySvg", {
+  refreshRate: 1,
+  minZoom: 3,
+  maxZoom: 10,
+});
 panZoom.fit();
+
+var animation = bodymovin.loadAnimation({
+  container: document.getElementById("lotie-ballons"), // Required
+  path: "animations/ballons.json", // Required
+  renderer: "svg/canvas/html", // Required
+  loop: true, // Optional
+  autoplay: true, // Optional
+  name: "Hello World", // Name for future reference. Optional.
+});
 
 let b1 = document.getElementsByClassName("building1")[0];
 let bt1 = document.getElementsByClassName("building1-text")[0];
