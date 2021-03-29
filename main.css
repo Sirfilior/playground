@@ -1,3 +1,29 @@
+@import url("https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800,900&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+/* The emerging W3C standard
+   that is currently Firefox-only */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #292929 #1a1a1a;
+}
+
+/* Works on Chrome/Edge/Safari */
+*::-webkit-scrollbar {
+  width: 15px;
+}
+*::-webkit-scrollbar-track {
+  background: #1a1a1a;
+}
+*::-webkit-scrollbar-thumb {
+  background-color: #292929;
+  border: 1px solid #1a1a1a;
+}
+
 body {
   margin: 0;
   color: #fff;
@@ -5,13 +31,171 @@ body {
   font-size: 13px;
   line-height: 24px;
   overscroll-behavior: none;
+  position: relative;
+}
+
+h2 {
+  font-size: 5em;
+  font-weight: 800;
+  color: #fff;
+  line-height: 1em;
+  text-transform: uppercase;
+}
+h3 {
+  font-size: 4em;
+  font-weight: 700;
+  color: #fff;
+  line-height: 1em;
+  text-transform: uppercase;
+}
+
+.showtext {
+  display: none;
+  opacity: 0;
+}
+
+.showtext.show {
+  display: block;
+  animation-name: fadein;
+  animation-duration: 4s;
+  animation-fill-mode: forwards;
+}
+
+.showtext.hide {
+  animation-name: fadeout;
+  animation-duration: 4s;
+}
+
+@keyframes fadein {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeout {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+.herowrapper {
+  width: 100%;
+  height: 100%;
+  display: flex;
+}
+
+.fullwrapper {
+  flex-basis: 33.3333%;
+}
+
+.webglwrapper {
+  flex-basis: 66.6666%;
+}
+
+.webglwrapper * {
+  height: 100%;
+}
+
+.textoverlay {
+  position: absolute;
+  left: 50px;
+  width: 33.33%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 section {
+  position: relative;
   background-color: lightgray;
+  height: 100vh;
 }
 
 section.fullheight {
-  height: 100vh;
-  background-color: #000;
+  background-color: #00060a;
+}
+
+.scrolldown {
+  cursor: pointer;
+  padding-top: 60px;
+  position: absolute;
+  bottom: -20px;
+  left: 50%;
+  z-index: 2;
+  display: inline-block;
+  -webkit-transform: translate(0, -50%);
+  transform: translate(0, -50%);
+  color: #fff;
+  font: normal 400 20px/1 "Josefin Sans", sans-serif;
+  letter-spacing: 0.1em;
+  text-decoration: none;
+  transition: opacity 0.3s;
+}
+.scrolldown:hover {
+  opacity: 0.5;
+}
+
+.scrolldown span {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 30px;
+  height: 50px;
+  margin-left: -15px;
+  border: 2px solid #fff;
+  border-radius: 50px;
+  box-sizing: border-box;
+}
+.scrolldown span::before {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  content: "";
+  width: 6px;
+  height: 6px;
+  margin-left: -3px;
+  background-color: #fff;
+  border-radius: 100%;
+  -webkit-animation: sdb10 2s infinite;
+  animation: sdb10 2s infinite;
+  box-sizing: border-box;
+}
+@-webkit-keyframes sdb10 {
+  0% {
+    -webkit-transform: translate(0, 0);
+    opacity: 0;
+  }
+  40% {
+    opacity: 1;
+  }
+  80% {
+    -webkit-transform: translate(0, 20px);
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+@keyframes sdb10 {
+  0% {
+    transform: translate(0, 0);
+    opacity: 0;
+  }
+  40% {
+    opacity: 1;
+  }
+  80% {
+    transform: translate(0, 20px);
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
 }
