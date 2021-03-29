@@ -115,13 +115,30 @@ h3 {
 section {
   position: relative;
   background-color: lightgray;
-  height: 100vh;
+  color: rgb(58, 58, 58);
+  min-height: 100vh;
+}
+
+p {
+  font-size: 20px;
+}
+
+section:not(.fullheight) {
+  padding: 150px;
 }
 
 section.fullheight {
   background-color: #00060a;
 }
 
+.container {
+  max-width: 80%;
+  margin: 0 auto;
+}
+
+.center {
+  text-align: center;
+}
 .scrolldown {
   cursor: pointer;
   padding-top: 60px;
