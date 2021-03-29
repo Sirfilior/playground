@@ -1,0 +1,17 @@
+body {
+  margin: 0;
+  color: #fff;
+  font-family: Monospace;
+  font-size: 13px;
+  line-height: 24px;
+  overscroll-behavior: none;
+}
+
+section {
+  background-color: lightgray;
+}
+
+section.fullheight {
+  height: 100vh;
+  background-color: #000;
+}
