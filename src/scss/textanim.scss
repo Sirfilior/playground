@@ -1,0 +1,34 @@
+.showtext {
+  display: none;
+  opacity: 0;
+}
+
+.showtext.show {
+  display: block;
+  animation-name: fadein;
+  animation-duration: 4s;
+  animation-fill-mode: forwards;
+}
+
+.showtext.hide {
+  animation-name: fadeout;
+  animation-duration: 4s;
+}
+
+@keyframes fadein {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeout {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
