@@ -22,7 +22,7 @@ body {
 }
 
 h2 {
-  font-size: 7em;
+  font-size: 6.5em;
   font-weight: 800;
   color: #fff;
   line-height: 1em;
@@ -43,21 +43,20 @@ h3 {
 }
 
 .fullwrapper {
-  flex-basis: 33.3333%;
+  flex-basis: 45%;
 }
 
 .webglwrapper {
-  flex-basis: 66.6666%;
-}
-
-.webglwrapper * {
-  height: 100%;
+  flex-basis: 55%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .textoverlay {
   position: absolute;
   left: 200px;
-  width: 33.33%;
+  width: 41%;
   height: 100%;
   display: flex;
   justify-content: center;
@@ -69,6 +68,7 @@ section {
   background-color: lightgray;
   color: rgb(58, 58, 58);
   min-height: 100vh;
+  height: 100vh;
 }
 
 p {

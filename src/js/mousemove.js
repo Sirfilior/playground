@@ -1,6 +1,5 @@
 export default class MouseMove {
   constructor(object) {
-    this.mouseDown = true;
     this.mouseX = 0;
     this.mouseY = 0;
     this.object = object;
@@ -8,10 +7,6 @@ export default class MouseMove {
   }
 
   onMouseMove(evt) {
-    if (!this.mouseDown) {
-      return;
-    }
-
     evt.preventDefault();
 
     var deltaX = evt.clientX - this.mouseX,
@@ -35,6 +30,11 @@ export default class MouseMove {
   rotateScene(deltaX, deltaY) {
     this.object.rotation.y += deltaX / 100;
     this.object.rotation.x += deltaY / 100;
+  }
+
+  moveObject(deltaX, deltaY) {
+    this.object.position.y += deltaX / 100;
+    this.object.position.x += deltaY / 100;
   }
 }
 

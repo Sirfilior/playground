@@ -1,4 +1,5 @@
 header {
+  background-color: white;
   position: absolute;
   right: 0;
   left: 0;
@@ -22,14 +23,12 @@ header {
   svg {
     height: 50px;
     width: auto;
-    * {
-      fill: white;
-    }
   }
 }
 
 .iconwrapper {
   display: flex;
+  color: #010101;
   div,
   svg {
     width: 25px;

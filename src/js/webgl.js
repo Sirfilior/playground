@@ -33,12 +33,7 @@ function init() {
 
   // CAMERA
 
-  camera = new THREE.PerspectiveCamera(
-    50,
-    (window.innerWidth * 0.6666) / window.innerHeight,
-    1,
-    1000
-  );
+  camera = new THREE.PerspectiveCamera(50, 800 / 800, 1, 1000);
   camera.position.set(0, 0, 5);
   cameraTarget = new THREE.Vector3(0, 0, 0);
 
@@ -67,12 +62,10 @@ function init() {
 
   renderer.setClearColor(new THREE.Color(BACKGROUND_COLOR));
   renderer.setPixelRatio(window.devicePixelRatio);
-  renderer.setSize(window.innerWidth * 0.6666, window.innerHeight);
+  renderer.setSize(800, 800);
   container.appendChild(renderer.domElement);
 
   controls = new OrbitControls(camera, renderer.domElement);
-  controls.autoRotate = true;
-  controls.autoRotateSpeed = 2;
   controls.enableZoom = false;
   controls.enablePan = false;
 
@@ -85,10 +78,9 @@ function init() {
 }
 
 function onWindowResize() {
-  windowHalfX = window.innerWidth / 2;
-  camera.aspect = window.innerWidth / window.innerHeight;
+  camera.aspect = 800 / 800;
   camera.updateProjectionMatrix();
-  renderer.setSize(window.innerWidth, window.innerHeight);
+  renderer.setSize(800, 800);
 }
 
 function loadLogo() {
@@ -101,10 +93,10 @@ function loadLogo() {
         node.material.wireframe = true;
       });
       //const mousemove = controls = new MouseMove(logoModel);
-      logoModel.scale.set(2, 2, 2); // scale here
+      logoModel.scale.set(2.5, 2.5, 2.5); // scale here
       scene.add(logoModel);
       logoModel.position.x = -1;
-      logoModel.position.y = -1;
+      logoModel.position.y = -1.5;
     },
     undefined,
     function (error) {
