@@ -1,7 +1,6 @@
 import * as THREE from "three";
-import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
-//import MouseMove from "./mousemove.js";
+import MouseMove from "./mousemove.js";
 
 THREE.Cache.enabled = true;
 
@@ -9,7 +8,7 @@ const loader = new GLTFLoader();
 
 let container;
 
-let camera, controls, cameraTarget, scene, renderer;
+let camera, cameraTarget, scene, renderer;
 
 let logoModel;
 
@@ -65,10 +64,6 @@ function init() {
   renderer.setSize(800, 800);
   container.appendChild(renderer.domElement);
 
-  controls = new OrbitControls(camera, renderer.domElement);
-  controls.enableZoom = false;
-  controls.enablePan = false;
-
   //container.appendChild( stats.dom );
 
   // EVENTS
@@ -92,11 +87,11 @@ function loadLogo() {
         if (!node.isMesh) return;
         node.material.wireframe = true;
       });
-      //const mousemove = controls = new MouseMove(logoModel);
       logoModel.scale.set(2.5, 2.5, 2.5); // scale here
       scene.add(logoModel);
-      logoModel.position.x = -1;
+      logoModel.position.x = -1.51;
       logoModel.position.y = -1.5;
+      const mousemove = new MouseMove(logoModel);
     },
     undefined,
     function (error) {
@@ -116,7 +111,6 @@ function animate() {
   requestAnimationFrame(animate);
 
   render();
-  controls.update();
 }
 
 function render() {
