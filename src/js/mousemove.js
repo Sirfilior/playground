@@ -45,8 +45,8 @@ export default class MouseMove {
   moveObject(x, y) {
     //Invert x to move in correct direction
     x = x * -1;
-    //this.object.rotation.y = this.initialXRot + x * this.maxRoateFactor * -1;
-    //this.object.rotation.x = this.initialYRot + y * this.maxRoateFactor;
+    this.object.rotation.y = this.initialXRot + x * this.maxRoateFactor * -1;
+    this.object.rotation.x = this.initialYRot + y * this.maxRoateFactor;
     this.object.position.x = this.initialX + x;
     this.object.position.y = this.initialY + y;
   }
