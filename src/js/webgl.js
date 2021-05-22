@@ -22,40 +22,46 @@ let container,
 
 var BACKGROUND_COLOR = "#00060a";
 
-var t = 0;
 var rt = 0;
+var rtRight = true;
+var tilt = 0;
+var light2Pos = 20;
 
 var gui = new dat.GUI();
 
 var options = {
-  colorLight1: 0x4d14de,
-  colorLight2: 0xff24db,
+  colorLight1: 0x464696,
+  light1I: 2.6,
+  colorLight2: 0xffffff,
+  light2I: 3,
   colorLight3: 0xffffff,
-  colorPoint1: 0x38b9ff,
+  light3I: 0.74,
+  colorPoint1: 0xff8312,
+  pLight1I: 4.9,
   colorPoint2: 0x38b9ff,
-  reset: function () {},
+  pLight2I: 1,
+  reset: function () { },
 };
 
-var light1 = new THREE.PointLight(options.colorPoint1, 1, 100);
-var light2 = new THREE.PointLight(options.colorPoint2, 1, 100);
+var light1 = new THREE.PointLight(options.colorPoint1, options.pLight1I, 100);
+var light2 = new THREE.PointLight(options.colorPoint2, options.pLight2I, 10);
 const width = 10;
 const height = 10;
-const intensity = 1;
 const rectLight = new THREE.RectAreaLight(
   options.colorLight1,
-  intensity,
+  options.light1I,
   width,
   height
 );
 const rectLight2 = new THREE.RectAreaLight(
   options.colorLight2,
-  intensity * 3,
+  options.light2I,
   width,
   height
 );
 const rectLight3 = new THREE.RectAreaLight(
   options.colorLight3,
-  intensity,
+  options.light3I,
   width,
   height
 );
@@ -82,6 +88,24 @@ gui.addColor(options, "colorPoint1").onChange(() => {
 gui.addColor(options, "colorPoint2").onChange(() => {
   light2.color.set(options.colorPoint2);
 });
+gui.add(options, 'light1I', 0, 10).onChange(() => {
+  rectLight.intensity = options.light1I
+});
+gui.add(options, 'light2I', 0, 10).onChange(() => {
+  rectLight2.intensity = options.light2I
+});
+gui.add(options, 'light3I', 0, 10).onChange(() => {
+  rectLight3.intensity = options.light3I
+});
+
+gui.add(options, 'pLight1I', 0, 10).onChange(() => {
+  light1.intensity = options.pLight1I
+});
+gui.add(options, 'pLight2I', 0, 10).onChange(() => {
+  light2.intensity = options.pLight2I
+});
+
+
 
 const clock = new THREE.Clock();
 init();
@@ -95,7 +119,7 @@ function init() {
 
   camera = new THREE.PerspectiveCamera(
     50,
-    window.innerWidth / window.innerHeight,
+    800 / 800,
     1,
     1000
   );
@@ -108,13 +132,13 @@ function init() {
   RectAreaLightUniformsLib.init();
 
   // LIGHTS
-  light1.position.x = 0;
-  light1.position.y = 3;
-  light1.position.z = -10;
+  light1.position.x = 3;
+  light1.position.y = 2;
+  light1.position.z = -5;
 
   light2.position.x = 0;
-  light2.position.y = 3;
-  light2.position.z = -10;
+  light2.position.y = light2Pos;
+  light2.position.z = -5;
 
   scene.add(rectLight);
   scene.add(rectLight2);
@@ -122,12 +146,12 @@ function init() {
   scene.add(light1);
   scene.add(light2);
 
-  /*scene.add(new THREE.PointLightHelper(light2, 1));
-  scene.add(new RectAreaLightHelper(rectLight));
-  scene.add(new RectAreaLightHelper(rectLight2));
-  scene.add(new RectAreaLightHelper(rectLight3));
-  scene.add(new THREE.PointLightHelper(light1, 1));
-  scene.add(new THREE.AxesHelper(10));*/
+  //scene.add(new THREE.PointLightHelper(light2, 1));
+  //scene.add(new RectAreaLightHelper(rectLight));
+  //scene.add(new RectAreaLightHelper(rectLight2));
+  //scene.add(new RectAreaLightHelper(rectLight3));
+  scene.add(new THREE.PointLightHelper(light1, 1, 'red'));
+  //scene.add(new THREE.AxesHelper(10));
 
   loadLogo();
 
@@ -140,7 +164,7 @@ function init() {
   //renderer.setClearColor(new THREE.Color(BACKGROUND_COLOR));
   renderer.setClearColor(0x000000, 0);
   renderer.setPixelRatio(window.devicePixelRatio);
-  renderer.setSize(window.innerWidth, window.innerHeight);
+  renderer.setSize(800, 800);
   container.appendChild(renderer.domElement);
   controls = new OrbitControls(camera, renderer.domElement);
   controls.update();
@@ -154,10 +178,9 @@ function init() {
 }
 
 function onWindowResize() {
-  windowHalfX = window.innerWidth / 2;
-  camera.aspect = window.innerWidth / window.innerHeight;
+  camera.aspect = 800 / 800;
   camera.updateProjectionMatrix();
-  renderer.setSize(window.innerWidth, window.innerHeight);
+  renderer.setSize(800, 800);
 }
 
 function loadLogo() {
@@ -166,7 +189,7 @@ function loadLogo() {
     function (gltf) {
       logoModel = gltf.scene;
       logoModel.scale.set(3.5, 3.5, 3.5); // scale here
-      logoModel.position.x = -2;
+      logoModel.position.x = -2.1;
       logoModel.position.y = -2.2;
       scene.add(logoModel);
       rtBox = new THREE.Box3().setFromObject(logoModel);
@@ -175,7 +198,7 @@ function loadLogo() {
       scene.add(rtGrp);
       rtGrp.add(logoModel);
       //scene.add(new THREE.BoxHelper(logoModel));
-      const mousemove = new MouseMove(rtGrp);
+      //const mousemove = new MouseMove(rtGrp);
     },
     undefined,
     function (error) {
@@ -184,19 +207,34 @@ function loadLogo() {
   );
 }
 
+function animateFlylight(d) {
+  if (light2Pos <= -20) { light2Pos = 20; }
+  light2Pos -= 6 * d
+
+  light2.position.y = light2Pos;
+}
+
+function animateBreath(d) {
+
+}
+
+function animateRotate(d) {
+  if (!rtGrp) return
+  let speed = 0.001
+  if (rtRight) {
+    if (rt >= 0.3) rtRight = false
+    rt += speed
+  } else {
+    if (rt <= -0.3) rtRight = true
+    rt -= speed
+  }
+  rtGrp.rotation.y = rt;
+}
+
 function animate() {
-  t += 0.1;
-  const time = Date.now() * 0.0005;
   const delta = clock.getDelta();
-
-  //directionalLight.position.y += Math.sin(t * 1);
-  //directionalLight.position.x += Math.cos(t + 10);
-
-  //light1.position.y += Math.sin(t * 0.2) * 0.5;
-  light2.position.y += Math.cos(t * 0.05) * 0.1;
-  /*if (rtGrp) {
-    rtGrp.rotation.y -= 0.5 * delta;
-  }*/
+  animateFlylight(delta);
+  animateRotate(delta);
 
   requestAnimationFrame(animate);
 

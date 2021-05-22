@@ -6,6 +6,7 @@ header {
   z-index: 200;
   padding: 15px 30px;
   height: 216px;
+  transform: translateY(-100%);
   .container {
     width: 100%;
     height: 100%;
@@ -21,14 +22,6 @@ header {
   z-index: 300 !important;
 }
 
-.glow {
-  z-index: 100;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 200%;
-  transform: translate(-50%, -50%);
-}
 
 .logowrapper {
   svg {
