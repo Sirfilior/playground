@@ -41,13 +41,66 @@ h3 {
   text-transform: uppercase;
 }
 
+.stars {
+  z-index: 8;
+  position: absolute;
+  top: -100%;
+  right: -20%;
+  width: 100%;
+  height: 200%;
+  transform: rotate(310deg);
+}
+
+.star {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 3px;
+  height: 100%;
+  overflow: hidden;
+
+  &::after {
+    content: '';
+    display: block;
+    position: absolute;
+    top: -50%;
+    left: 0;
+    height: 5vh;
+    width: 100%;
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, #195edd 75%, #2394df 100%);
+    animation: drop 7s 0s infinite;
+    animation-fill-mode: forwards;
+    animation-timing-function: cubic-bezier(0.36, 0.01, 0.92, 0.46);
+  }
+  &:nth-child(1) {
+    margin-left: -10%;
+    &::after {
+      animation-delay: 2s;
+    }
+  }
+  &:nth-child(3) {
+    margin-left: 10%;
+    &::after {
+      animation-delay: 2.5s;
+    }
+  }
+}
+@keyframes drop {
+  0% {
+    top: -50%;
+  }
+  100% {
+    top: 110%;
+  }
+};
+
 .glowButtom {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: 1;
+  z-index: 4;
   .w {
     position: relative;
     width: 100%;
