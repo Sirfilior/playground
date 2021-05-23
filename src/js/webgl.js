@@ -5,6 +5,7 @@ import { RectAreaLightHelper } from "three/examples/jsm/helpers/RectAreaLightHel
 import { RectAreaLightUniformsLib } from "three/examples/jsm/lights/RectAreaLightUniformsLib.js";
 import * as dat from "dat.gui";
 import MouseMove from "./mousemove.js";
+import { Vector3 } from "three";
 
 THREE.Cache.enabled = true;
 
@@ -35,7 +36,7 @@ var options = {
   colorLight2: 0xffffff,
   light2I: 3,
   colorLight3: 0xffffff,
-  light3I: 0.74,
+  light3I: 1.4,
   colorPoint1: 0xff8312,
   pLight1I: 4.9,
   colorPoint2: 0x38b9ff,
@@ -150,7 +151,7 @@ function init() {
   //scene.add(new RectAreaLightHelper(rectLight));
   //scene.add(new RectAreaLightHelper(rectLight2));
   //scene.add(new RectAreaLightHelper(rectLight3));
-  scene.add(new THREE.PointLightHelper(light1, 1, 'red'));
+  //scene.add(new THREE.PointLightHelper(light1, 1, 'red'));
   //scene.add(new THREE.AxesHelper(10));
 
   loadLogo();
@@ -159,7 +160,7 @@ function init() {
   scene.add(box);
 
   // RENDERER
-  renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+  renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, });
 
   //renderer.setClearColor(new THREE.Color(BACKGROUND_COLOR));
   renderer.setClearColor(0x000000, 0);
@@ -185,12 +186,12 @@ function onWindowResize() {
 
 function loadLogo() {
   loader.load(
-    "JassOrigMesh.glb",
+    "Intersim2.glb",
     function (gltf) {
       logoModel = gltf.scene;
-      logoModel.scale.set(3.5, 3.5, 3.5); // scale here
-      logoModel.position.x = -2.1;
-      logoModel.position.y = -2.2;
+      logoModel.scale.set(4, 4, 4); // scale here
+      //logoModel.position.x = -2.1;
+      //logoModel.position.y = -2.2;
       scene.add(logoModel);
       rtBox = new THREE.Box3().setFromObject(logoModel);
       //rtBox.center(logoModel.position); // this re-sets the mesh position
@@ -228,7 +229,9 @@ function animateRotate(d) {
     if (rt <= -0.3) rtRight = true
     rt -= speed
   }
+  //rtGrp.scale.set(1 + rt / 4, 1 + rt / 4, 1 + rt / 4)
   rtGrp.rotation.y = rt;
+  rtGrp.rotation.x = rt / 2;
 }
 
 function animate() {

@@ -4,6 +4,11 @@
 @import "./scrolldown.scss";
 @import "./textanim.scss";
 
+@keyframes pulse {
+  from {opacity: 1;}
+  to {opacity: 0.5;}
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -53,7 +58,9 @@ h3 {
     width: 1000px;
     height: 1000px;
     right: 0px;
-    background: radial-gradient(circle at 93% 95%, #0e1231 0%, #0b0c0d 50%);
+    //192261
+    //13194a
+    background: radial-gradient(circle at 93% 95%, #192261 0%, #0b0c0d 50%);
     bottom: 0;
   }
 }
@@ -104,7 +111,7 @@ section:not(.first) {
 
 section.first {
   overflow: hidden;
-  background: radial-gradient(circle at 3% 5%, #0e1231 0%, #0b0c0d 50%);
+  background: radial-gradient(circle at 3% 5%, #161d4e 0%, #0b0c0d 50%);
   background-color: #000818;
 }
 

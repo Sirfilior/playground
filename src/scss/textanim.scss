@@ -6,13 +6,13 @@
 .showtext.show {
   display: block;
   animation-name: fadein;
-  animation-duration: 4s;
+  animation-duration: 1s;
   animation-fill-mode: forwards;
 }
 
 .showtext.hide {
   animation-name: fadeout;
-  animation-duration: 4s;
+  animation-duration: 1s;
 }
 
 @keyframes fadein {

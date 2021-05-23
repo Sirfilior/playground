@@ -7,14 +7,14 @@ var interval = setInterval(function () {
     case 4:
       textelements[0].classList.add("hide");
       break;
-    case 8:
+    case 6:
       textelements[0].classList.remove("show");
       textelements[1].classList.add("show");
       break;
-    case 12:
+    case 10:
       textelements[1].classList.add("hide");
       break;
-    case 16:
+    case 12:
       textelements[1].classList.remove("show");
       textelements[2].classList.add("show");
       window.clearInterval(interval);
