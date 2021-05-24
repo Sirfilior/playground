@@ -28,7 +28,7 @@ var rtRight = true;
 var tilt = 0;
 var light2Pos = 20;
 
-var gui = new dat.GUI();
+var gui = new dat.GUI({ closed: true });
 
 var options = {
   colorLight1: 0x464696,
