@@ -146,6 +146,9 @@ h3 {
 }
 
 .webglwrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 800px;
   height: 800px;
 }

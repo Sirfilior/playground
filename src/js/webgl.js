@@ -113,14 +113,13 @@ init();
 animate();
 
 function init() {
-  container = document.createElement("div");
-  document.getElementById("webgl").appendChild(container);
+  container = document.getElementById("webgl");
 
   // CAMERA
 
   camera = new THREE.PerspectiveCamera(
     50,
-    800 / 800,
+    1000 / 1000,
     1,
     1000
   );
@@ -165,7 +164,7 @@ function init() {
   //renderer.setClearColor(new THREE.Color(BACKGROUND_COLOR));
   renderer.setClearColor(0x000000, 0);
   renderer.setPixelRatio(window.devicePixelRatio);
-  renderer.setSize(800, 800);
+  renderer.setSize(1000, 1000);
   container.appendChild(renderer.domElement);
   controls = new OrbitControls(camera, renderer.domElement);
   controls.update();
@@ -179,9 +178,9 @@ function init() {
 }
 
 function onWindowResize() {
-  camera.aspect = 800 / 800;
+  camera.aspect = 1000 / 1000;
   camera.updateProjectionMatrix();
-  renderer.setSize(800, 800);
+  renderer.setSize(1000, 1000);
 }
 
 function loadLogo() {
@@ -189,7 +188,7 @@ function loadLogo() {
     "Intersim2.glb",
     function (gltf) {
       logoModel = gltf.scene;
-      logoModel.scale.set(4, 4, 4); // scale here
+      logoModel.scale.set(3, 3, 3); // scale here
       //logoModel.position.x = -2.1;
       //logoModel.position.y = -2.2;
       scene.add(logoModel);
@@ -199,7 +198,7 @@ function loadLogo() {
       scene.add(rtGrp);
       rtGrp.add(logoModel);
       //scene.add(new THREE.BoxHelper(logoModel));
-      //const mousemove = new MouseMove(rtGrp);
+      const mousemove = new MouseMove(rtGrp);
     },
     undefined,
     function (error) {
