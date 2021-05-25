@@ -166,8 +166,8 @@ function init() {
   renderer.setPixelRatio(window.devicePixelRatio);
   renderer.setSize(1000, 1000);
   container.appendChild(renderer.domElement);
-  controls = new OrbitControls(camera, renderer.domElement);
-  controls.update();
+  //controls = new OrbitControls(camera, renderer.domElement);
+  //controls.update();
 
   //container.appendChild( stats.dom );
 
@@ -245,7 +245,7 @@ function animate() {
 
 function render() {
   camera.lookAt(cameraTarget);
-  controls.update();
+  //controls.update();
   renderer.clear();
   renderer.render(scene, camera);
 }
