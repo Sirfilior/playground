@@ -185,7 +185,7 @@ function init() {
     exposure: 0.7,
     bloomStrength: 0.8,
     bloomThreshold: 0,
-    bloomRadius: 0.89,
+    bloomRadius: 0.26,
   };
 
   const bloomPass = new UnrealBloomPass(
