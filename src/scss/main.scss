@@ -103,7 +103,8 @@ h3 {
   height: 100%;
   z-index: 3;
   //background: radial-gradient(circle at 3% 5%, #161d4e 0%, #0b0c0d 50%);
-  background: linear-gradient(135deg, #161d4e 0%, #0b0c0d 67%);
+  //background: linear-gradient(135deg, #161d4e 0%, #0b0c0d00 67%);
+  background: linear-gradient(135deg, #0e438d80 0%, #0b0c0d00 67%)
 }
 
 .glowButtom {
@@ -112,25 +113,11 @@ h3 {
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: 4;
-  .w {
-    position: relative;
+  z-index: 2;
+  overflow: hidden;
+  img {
     width: 100%;
-    height: 100%;
-  }
-  .glow {
-    position: absolute;
-    width: 400px;
-    height: 400px;
-    right: 0px;
-    //192261
-    //13194a
-    border-radius: 50%;
-    filter: blur(200px);
-    background: #192261;
-    background: linear-gradient(135deg, #161d4e 0%, #0b0c0d 67%);
-    //background: radial-gradient(circle at 93% 95%, #192261 0%, #0b0c0d 50%);
-    bottom: 0;
+    height: auto;
   }
 }
 
