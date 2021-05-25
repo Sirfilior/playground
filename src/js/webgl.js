@@ -1,11 +1,13 @@
 import * as THREE from "three";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
-import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import { RectAreaLightHelper } from "three/examples/jsm/helpers/RectAreaLightHelper.js";
 import { RectAreaLightUniformsLib } from "three/examples/jsm/lights/RectAreaLightUniformsLib.js";
 import * as dat from "dat.gui";
 import MouseMove from "./mousemove.js";
-import { Vector3 } from "three";
+
+import { EffectComposer } from "three/examples/jsm/postprocessing/EffectComposer.js";
+import { RenderPass } from "three/examples/jsm/postprocessing/RenderPass.js";
+import { UnrealBloomPass } from "./UnrealBloomPass";
 
 THREE.Cache.enabled = true;
 
@@ -17,6 +19,7 @@ let container,
   cameraTarget,
   scene,
   renderer,
+  composer,
   controls,
   rtBox,
   rtGrp;
@@ -35,7 +38,7 @@ var options = {
   light1I: 2.6,
   colorLight2: 0xffffff,
   light2I: 3,
-  colorLight3: 0x3c5dc6,
+  colorLight3: 0xc319b,
   light3I: 2.8,
   colorPoint1: 0xff8312,
   pLight1I: 4.9,
@@ -169,10 +172,57 @@ function init() {
   //controls = new OrbitControls(camera, renderer.domElement);
   //controls.update();
 
-  //container.appendChild( stats.dom );
+
+  const renderScene = new RenderPass(
+    scene,
+    camera,
+    null,
+    new THREE.Color("#00060a"),
+    0
+  );
+
+  const params = {
+    exposure: 0.7,
+    bloomStrength: 0.8,
+    bloomThreshold: 0,
+    bloomRadius: 0.89,
+  };
+
+  const bloomPass = new UnrealBloomPass(
+    new THREE.Vector2(1000, 1000),
+    1.5,
+    0.4,
+    0.85
+  );
+  bloomPass.threshold = params.bloomThreshold;
+  bloomPass.strength = params.bloomStrength;
+  bloomPass.radius = params.bloomRadius;
+
+  composer = new EffectComposer(renderer);
+  composer.addPass(renderScene);
+  composer.addPass(bloomPass);
+
+
+  gui.add(params, "exposure", 0.1, 2).onChange(function (value) {
+    renderer.toneMappingExposure = Math.pow(value, 4.0);
+  });
+
+  gui.add(params, "bloomThreshold", 0.0, 1.0).onChange(function (value) {
+    bloomPass.threshold = Number(value);
+  });
+
+  gui.add(params, "bloomStrength", 0.0, 3.0).onChange(function (value) {
+    bloomPass.strength = Number(value);
+  });
+
+  gui
+    .add(params, "bloomRadius", 0.0, 1.0)
+    .step(0.01)
+    .onChange(function (value) {
+      bloomPass.radius = Number(value);
+    });
 
   // EVENTS
-
   container.style.touchAction = "none";
   window.addEventListener("resize", onWindowResize);
 }
@@ -246,6 +296,5 @@ function animate() {
 function render() {
   camera.lookAt(cameraTarget);
   //controls.update();
-  renderer.clear();
-  renderer.render(scene, camera);
+  composer.render();
 }
