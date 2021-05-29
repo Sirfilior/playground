@@ -1,27 +1,36 @@
 header {
   background-color: white;
-  position: absolute;
+  position: fixed;
   right: 0;
   left: 0;
   z-index: 200;
   padding: 15px 30px;
   height: 216px;
+  max-height: 216px;
   transform: translateY(-100%);
-  .container {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    max-width: 1320px;
-    margin: 0 auto;
+  transition: max-height .4s, transform .3s;
+  &.attop {
+    max-height: 100px;
+    transform: translateY(0%);
+    .header-container {
+      max-width: 100%;
+    }
+  }
+  &.scrolled {
+    transform: translateY(0%);
   }
 }
 
-.dg.ac {
-  z-index: 300 !important;
+.header-container {
+  max-width: 1320px;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: max-width .4s;
+  margin: 0 auto;
 }
-
 
 .logowrapper {
   svg {

@@ -9,8 +9,8 @@
 </head>
 
 <body>
-  <header>
-    <div class="container">
+  <header id="jsHeader" class="attop">
+    <div class="header-container">
       <div class="logowrapper">
         <svg id="Ebene_1" data-name="Ebene 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 41.45">
           <defs>
@@ -54,7 +54,7 @@
             transform="translate(-0.09 0.07)" />
         </svg>
       </div>
-      <div class="iconwrapper">
+      <div class="iconwrapper menu">
         <div class="search">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search"
             viewBox="0 0 16 16">
@@ -81,32 +81,26 @@
 
   </header>
   <section class="first">
-    <!--<img src="https://github.githubassets.com/images/modules/site/home/hero-glow.svg" alt="Glowing universe"
-      class="glow">-->
-    <div class="stars">
-      <div class="star"></div>
-      <div class="star"></div>
-      <div class="star"></div>
-    </div>
-    <div class="glowTop"></div>
-    <div class="glowButtom">
-      <img src="bg_neb.jpg" />
-    </div>
-    <div class="herowrapper">
-      <div class="textoverlay">
-        <div class="headingtext">
-          <h2 class="showtext">
-            Wenn sich Ideen und Anforderungen zu Lösungen verbinden
-          </h2>
-          <h2 class="showtext">Technologie von Menschen für Menschen</h2>
-          <h2 class="showtext">
-            Weblösungen am Puls der Zeit, innovativ und massgeschneidert
-          </h2>
-        </div>
+    <div class="side-left">
+      <div class="headingtext">
+        <h2 class="showtext">
+          Wenn sich Ideen und Anforderungen zu <span class="hl">Lösungen</span> verbinden
+        </h2>
+        <h2 class="showtext">Technologie von <span class="hl">Menschen</span> für Menschen</h2>
+        <h2 class="showtext">
+          Weblösungen am Puls der Zeit, <span class="hl">innovativ</span> und massgeschneidert
+        </h2>
       </div>
-      <div class="webglwrapper" id="webgl"></div>
       <div class="scrollwrapper">
         <div id="jsscroll" class="scrolldown"><span></span>Scroll</div>
+      </div>
+    </div>
+    <div class="side-right">
+      <div id="webgl"></div>
+      <div class="stepwrapper">
+        <div class="step active"></div>
+        <div class="step"></div>
+        <div class="step"></div>
       </div>
     </div>
   </section>

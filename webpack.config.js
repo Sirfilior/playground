@@ -4,7 +4,6 @@ module.exports = {
   mode: "production",
   entry: {
     main: "./src/index.js",
-    second: "./src/second.js",
   },
   output: {
     filename: "[name].bundle.js",
