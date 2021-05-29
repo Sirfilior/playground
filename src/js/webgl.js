@@ -1,98 +1,126 @@
-import * as THREE from "three";
-import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
-import * as dat from "dat.gui";
-THREE.Cache.enabled = true;
+import * as dat from 'dat.gui'
+import * as THREE from 'three'
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
+import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader.js'
 
-const loader = new GLTFLoader();
+/**
+ * Base
+ */
+// Debug
+const debugObject = {}
 
-let container,
-  camera,
-  cameraTarget,
-  scene,
-  renderer,
-  controls,
-  model;
+// Canvas
+const canvas = document.querySelector('canvas.webgl')
 
-var BACKGROUND_COLOR = "#777777";
+// Scene
+const scene = new THREE.Scene()
 
-var gui = new dat.GUI({ closed: true });
+/**
+ * Loaders
+ */
+// Texture loader
+const textureLoader = new THREE.TextureLoader()
 
-var options = {
-  reset: function () { },
-};
+// Draco loader
+const dracoLoader = new DRACOLoader()
+dracoLoader.setDecoderPath('draco/')
 
+// GLTF loader
+const gltfLoader = new GLTFLoader()
+gltfLoader.setDRACOLoader(dracoLoader)
 
-const clock = new THREE.Clock();
-init();
-animate();
+/**
+ * Textures
+ */
+const bakedTexture = textureLoader.load('baked.jpg')
+bakedTexture.flipY = false
+bakedTexture.encoding = THREE.sRGBEncoding
 
-function init() {
-  container = document.getElementById("webgl");
+/**
+ * Materials
+ */
+// Baked material
+const bakedMaterial = new THREE.MeshBasicMaterial({ map: bakedTexture })
 
-  // CAMERA
-  camera = new THREE.PerspectiveCamera(
-    50,
-    window.innerWidth * 0.6 / window.innerHeight,
-    1,
-    window.innerWidth * 0.6
-  );
-  camera.position.set(0, 0, 5);
-  cameraTarget = new THREE.Vector3(0, 0, 0);
+/**
+ * Model
+ */
+gltfLoader.load(
+  'portal.glb',
+  (gltf) => {
+    scene.add(gltf.scene)
+    gltf.scene.position.y = -1
+    gltf.scene.traverse(function (child) {
+      child.material = bakedMaterial
+    });
+  }
+)
 
-  // SCENE
-  scene = new THREE.Scene();
-
-  // MODEL
-  loadModel();
-
-  // RENDERER
-  renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, });
-  renderer.setClearColor(new THREE.Color(BACKGROUND_COLOR));
-  renderer.setPixelRatio(window.devicePixelRatio);
-  renderer.setSize(window.innerWidth * 0.6, window.innerHeight);
-  //container.appendChild(renderer.domElement);
-
-  // CONTROLS
-  //controls = new OrbitControls(camera, renderer.domElement);
-  //controls.update();
-
-  // EVENTS
-  container.style.touchAction = "none";
-  window.addEventListener("resize", onWindowResize);
+/**
+ * Sizes
+ */
+const sizes = {
+  width: window.innerWidth * 0.6,
+  height: window.innerHeight
 }
 
-function onWindowResize() {
-  camera.aspect = window.innerWidth * 0.6 / window.innerHeight;
-  camera.updateProjectionMatrix();
-  renderer.setSize(window.innerWidth * 0.6, window.innerHeight);
-}
+window.addEventListener('resize', () => {
+  // Update sizes
+  sizes.width = window.innerWidth * 0.6
+  sizes.height = window.innerHeight
 
-function loadModel() {
-  /*loader.load(
-    "Model.glb",
-    function (gltf) {
-      model = gltf.scene;
-      model.scale.set(1, 1, 1); // scale here
-      //model.position.x = -2.1;
-      //model.position.y = -2.2;
-      scene.add(model);
-    },
-    undefined,
-    function (error) {
-      console.error(error);
-    }
-  );*/
-}
+  // Update camera
+  camera.aspect = sizes.width / sizes.height
+  camera.updateProjectionMatrix()
 
+  // Update renderer
+  renderer.setSize(sizes.width, sizes.height)
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
+})
 
-function animate() {
-  const delta = clock.getDelta();;
-  requestAnimationFrame(animate);
-  render();
-}
+/**
+ * Camera
+ */
+// Base camera
+const camera = new THREE.PerspectiveCamera(45, sizes.width / sizes.height, 0.1, 100)
+camera.position.set(-3, 0, 0);
+scene.add(camera)
 
-function render() {
-  camera.lookAt(cameraTarget);
-  //controls.update();
+// Controls
+const controls = new OrbitControls(camera, canvas)
+controls.enableDamping = true
+
+/**
+ * Renderer
+ */
+const renderer = new THREE.WebGLRenderer({
+  canvas: canvas,
+  antialias: true
+})
+renderer.outputEncoding = THREE.sRGBEncoding
+renderer.setSize(sizes.width, sizes.height)
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
+
+debugObject.clearColor = '#201919'
+renderer.setClearColor(debugObject.clearColor)
+
+/**
+ * Animate
+ */
+const clock = new THREE.Clock()
+
+const tick = () => {
+  const elapsedTime = clock.getElapsedTime()
+
+  // Update controls
+  controls.update()
+
+  // Render
   renderer.render(scene, camera)
+
+  // Call tick again on the next frame
+  window.requestAnimationFrame(tick)
 }
+
+tick()
