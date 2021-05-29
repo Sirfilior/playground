@@ -50,7 +50,7 @@ function init() {
   renderer.setClearColor(new THREE.Color(BACKGROUND_COLOR));
   renderer.setPixelRatio(window.devicePixelRatio);
   renderer.setSize(window.innerWidth * 0.6, window.innerHeight);
-  container.appendChild(renderer.domElement);
+  //container.appendChild(renderer.domElement);
 
   // CONTROLS
   //controls = new OrbitControls(camera, renderer.domElement);
