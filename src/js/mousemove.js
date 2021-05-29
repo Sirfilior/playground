@@ -6,7 +6,7 @@ export default class MouseMove {
     this.mouseXOrig = this.widthRef;
     this.mouseYOrig = this.heightRef;
     //Increase this to move more wih mosue, respect scence boundaries!
-    this.maxMove = 0.7;
+    this.maxMove = 0.4;
     //Increase this to rotate the object more
     this.maxRoateFactor = 0.5;
     //Assign webgl object

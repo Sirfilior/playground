@@ -122,9 +122,9 @@ function init() {
 
   camera = new THREE.PerspectiveCamera(
     50,
-    1000 / 1000,
+    window.innerWidth / window.innerHeight,
     1,
-    1000
+    window.innerWidth
   );
   camera.position.set(0, 0, 5);
   cameraTarget = new THREE.Vector3(0, 0, 0);
@@ -167,7 +167,7 @@ function init() {
   //renderer.setClearColor(new THREE.Color(BACKGROUND_COLOR));
   renderer.setClearColor(0x000000, 0);
   renderer.setPixelRatio(window.devicePixelRatio);
-  renderer.setSize(1000, 1000);
+  renderer.setSize(window.innerWidth, window.innerHeight);
   container.appendChild(renderer.domElement);
   //controls = new OrbitControls(camera, renderer.domElement);
   //controls.update();
@@ -189,7 +189,7 @@ function init() {
   };
 
   const bloomPass = new UnrealBloomPass(
-    new THREE.Vector2(1000, 1000),
+    new THREE.Vector2(window.innerWidth, window.innerHeight),
     1.5,
     0.4,
     0.85
@@ -228,9 +228,9 @@ function init() {
 }
 
 function onWindowResize() {
-  camera.aspect = 1000 / 1000;
+  camera.aspect = window.innerWidth / window.innerHeight;
   camera.updateProjectionMatrix();
-  renderer.setSize(1000, 1000);
+  renderer.setSize(window.innerWidth, window.innerHeight);
 }
 
 function loadLogo() {
@@ -238,7 +238,7 @@ function loadLogo() {
     "Intersim2.glb",
     function (gltf) {
       logoModel = gltf.scene;
-      logoModel.scale.set(3, 3, 3); // scale here
+      logoModel.scale.set(2, 2, 2); // scale here
       //logoModel.position.x = -2.1;
       //logoModel.position.y = -2.2;
       scene.add(logoModel);
@@ -266,6 +266,10 @@ function animateFlylight(d) {
 
 function animateBreath(d) {
 
+}
+//  t = time, b = beginning value, c = change in value, d = duration
+function easeOutQuad(t, b, c, d) {
+  return -c * (t /= d) * (t - 2) + b;
 }
 
 function animateRotate(d) {
